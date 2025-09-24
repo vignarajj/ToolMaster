@@ -1,0 +1,71 @@
+---
+
+**Project: ToolMaster App**
+
+**Tech Stack:** Tauri v2 (Rust backend) with Dioxus (for RSX-based UI) + SQLite (via `tauri-plugin-sql` for local storage). No external APIs—fully offline.
+
+**Platforms:** Web (for preview) and Desktop (build for Windows/macOS/Linux). Ensure responsive UI with Tailwind CSS for different screen sizes.
+
+**Global Requirements:**
+- Theme toggle: Dark/Light mode (use CSS variables).
+- UI Theme: Primary color `#d45202` (orange) for buttons, accents, and widgets. Use modular components (e.g., buttons, inputs, modals).
+- Structure: Modular files/directories (e.g., `src-tauri/src/commands/`, `src/ui/components/`, `src/models/`).
+- Error Handling: Use Rust's `Result`/`anyhow` for backend; show user-friendly toasts/alerts in UI. Validate inputs (e.g., length checks) with clear error messages.
+- Documentation: Full inline comments in code; comprehensive README.md with setup, run instructions, and screenshots.
+- Scripts: Add `run.sh` (Linux/macOS) and `run.bat` (Windows) for easy startup (`npm run tauri dev`).
+- No auth; local-only storage.
+
+**Core Modules (Build as separate tabs/routes in Dioxus app):**
+
+1. **Text Counter**
+   - Input: Large textarea for text entry.
+   - Real-time stats (update on input): Total chars, chars without spaces, words, lines, paragraphs, sentences, estimated reading time (avg 200 WPM), size in KB.
+   - Each stat: Display value + copy button (use `navigator.clipboard`).
+   - Validation: Limit text to 10KB; show error if exceeded.
+
+2. **Text Converter**
+   - Input: Textarea.
+   - Real-time converters (buttons to toggle): Upper/Lower/Title/Camel/Snake/Kebab Case, Capitalize Words, Reverse Text, Remove Spaces, Remove Line Breaks.
+   - Output: Show converted text + copy button for each.
+   - Validation: Empty input shows "Enter text to convert" error.
+
+3. **Base64 Encoder/Decoder**
+   - Input: Textarea for text.
+   - Buttons: Encode/Decode to/from Base64.
+   - Output: Converted text + copy button.
+   - Validation: Invalid Base64 decode shows "Invalid input" error.
+
+4. **Password Generator**
+   - Controls: Slider for length (4-50, default 12); checkboxes for Uppercase, Lowercase, Numbers, Symbols.
+   - Generate button: Output secure random password + copy/regen buttons.
+   - Backend: Use Rust's `rand` crate for generation.
+   - Validation: At least one option selected; show error toast.
+
+5. **QR Code Generator**
+   - Inputs: Dropdown for type (Plain Text, URL, Email, Phone); textarea for content.
+   - Generate: Render QR code image (use Rust `qrcode` crate, expose via Tauri command; display as SVG/PNG in UI).
+   - Features: Download QR as PNG + copy content.
+   - Validation: Required fields; show "Invalid URL/Email/Phone format" errors.
+
+6. **Color Picker Manager**
+   - Features: Color picker input (use HTML `<input type="color">`); name field for custom names.
+   - Manage: Add to palette (local storage); list palettes with edit/delete; export as JSON/CSS.
+   - UI: Grid of color swatches with names; search/filter.
+   - Validation: Unique names; hex format check.
+
+**Objective: Integrated Todo App (Separate Route/Tab)**
+- Use SQLite for local storage (init DB on app start with table: `todos` {id: UUID, title: String, completed: Bool, created_at: Timestamp}).
+- Features: Add todo (input + submit), edit (inline or modal), delete (confirm dialog), mark complete (toggle checkbox). List view with search/filter.
+- UI: Beautiful, responsive cards/list (use RSX for components like `TodoItem`); animations for add/edit (CSS transitions).
+- Backend: Tauri commands for CRUD (e.g., `invoke('add_todo', { title })`); error handling for DB ops.
+- Validation: Title required (min 3 chars); show inline errors.
+
+**Final Deliverables:**
+- Full Tauri project scaffold (run `npm create tauri-app@latest` then customize).
+- Responsive layout: Sidebar nav for modules; mobile-friendly (media queries).
+- README.md: Installation (Rust/Node prereqs), run scripts, module overviews, build/deploy notes (e.g., "For desktop builds, clone to local and run `tauri build`—Replit previews web only").
+- Test: Ensure offline (no net calls); handle edge cases like empty DB.
+
+Generate the complete project structure, code, and files. Start with `Cargo.toml`/`tauri.conf.json` setup, then UI routes in Dioxus, and Rust commands. Use examples from Tauri docs for SQLite integration.
+
+---
