@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { BatchProcessor } from "@/components/ui/batch-processor";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useKeyboardShortcuts, type KeyboardShortcut } from "@/hooks/use-keyboard-shortcuts";
 import { calculateTextStats, type TextStats } from "@/lib/text-utils";
@@ -191,6 +192,7 @@ File Size: ${stats.fileSize}`;
         <CardContent className="p-6">
           <h3 className="text-lg font-semibold text-foreground mb-4">Quick Actions</h3>
           <div className="flex flex-wrap gap-3">
+            <BatchProcessor mode="counter" />
             <Button 
               onClick={handleCopyAll}
               data-testid="button-copy-all"

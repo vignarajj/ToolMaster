@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { BatchProcessor } from "@/components/ui/batch-processor";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { convertText } from "@/lib/text-utils";
 import { Copy, RotateCcw } from "lucide-react";
@@ -47,14 +48,17 @@ export default function TextConverter() {
               <div className="text-sm text-muted-foreground">
                 {inputText.length} characters
               </div>
-              <Button 
-                variant="outline"
-                onClick={handleClear}
-                data-testid="button-clear"
-              >
-                <RotateCcw className="w-4 h-4 mr-2" />
-                Clear
-              </Button>
+              <div className="flex gap-2">
+                <BatchProcessor mode="converter" />
+                <Button 
+                  variant="outline"
+                  onClick={handleClear}
+                  data-testid="button-clear"
+                >
+                  <RotateCcw className="w-4 h-4 mr-2" />
+                  Clear
+                </Button>
+              </div>
             </div>
             {!inputText.trim() && (
               <div className="text-sm text-destructive">
