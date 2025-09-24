@@ -24,7 +24,7 @@ import {
   TrendingUp
 } from "lucide-react";
 
-const MAX_SIZE_KB = 10;
+const MAX_SIZE_KB = 512;
 const MAX_SIZE_BYTES = MAX_SIZE_KB * 1024;
 
 export default function TextCounter() {
