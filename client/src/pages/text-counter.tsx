@@ -18,7 +18,9 @@ import {
   Download,
   RotateCcw,
   Trash2,
-  Info
+  Info,
+  BookOpen,
+  TrendingUp
 } from "lucide-react";
 
 const MAX_SIZE_KB = 10;
@@ -216,17 +218,113 @@ File Size: ${stats.fileSize}`;
         </CardContent>
       </Card>
 
+      {/* Readability Analysis */}
+      {stats.readability && (
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <BookOpen className="w-5 h-5 text-primary" />
+              <h3 className="text-lg font-semibold text-foreground">Readability Analysis</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="text-center p-4 bg-muted rounded-lg">
+                <p className="text-sm text-muted-foreground mb-1">Flesch Reading Ease</p>
+                <p className="text-2xl font-bold text-foreground">{stats.readability.fleschReadingEase.toFixed(1)}</p>
+                <Badge 
+                  variant="secondary" 
+                  className={`mt-1 ${
+                    stats.readability.fleschReadingEase >= 70 
+                      ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
+                      : stats.readability.fleschReadingEase >= 50
+                      ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300'
+                      : 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300'
+                  }`}
+                >
+                  {stats.readability.readingLevel}
+                </Badge>
+              </div>
+              <div className="text-center p-4 bg-muted rounded-lg">
+                <p className="text-sm text-muted-foreground mb-1">Grade Level</p>
+                <p className="text-2xl font-bold text-foreground">{stats.readability.fleschKincaidGrade.toFixed(1)}</p>
+                <p className="text-xs text-muted-foreground mt-1">Flesch-Kincaid</p>
+              </div>
+              <div className="flex flex-col justify-center">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => copyToClipboard(
+                    `Readability: ${stats.readability?.readingLevel} (${stats.readability?.fleschReadingEase.toFixed(1)} score, Grade ${stats.readability?.fleschKincaidGrade.toFixed(1)})`,
+                    "Readability analysis copied"
+                  )}
+                  data-testid="button-copy-readability"
+                >
+                  <Copy className="w-4 h-4 mr-2" />
+                  Copy Analysis
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Keyword Density */}
+      {stats.keywordDensity && stats.keywordDensity.length > 0 && (
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <TrendingUp className="w-5 h-5 text-primary" />
+              <h3 className="text-lg font-semibold text-foreground">Top Keywords</h3>
+              <Badge variant="secondary">{stats.keywordDensity.length} keywords</Badge>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+              {stats.keywordDensity.map((item, index) => (
+                <div 
+                  key={index} 
+                  className="flex items-center justify-between p-2 bg-muted rounded-md hover:bg-accent transition-colors cursor-pointer"
+                  onClick={() => copyToClipboard(item.keyword, `"${item.keyword}" copied`)}
+                  data-testid={`keyword-${index}`}
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium truncate">{item.keyword}</p>
+                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                      <span>{item.count}x</span>
+                      <span>•</span>
+                      <span>{item.density.toFixed(1)}%</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 pt-3 border-t border-border">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => copyToClipboard(
+                  stats.keywordDensity?.map(item => `${item.keyword} (${item.count}x, ${item.density.toFixed(1)}%)`).join('\n') || '',
+                  "Keyword density analysis copied"
+                )}
+                data-testid="button-copy-keywords"
+              >
+                <Copy className="w-4 h-4 mr-2" />
+                Copy All Keywords
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Information Panel */}
       <Card className="bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
         <CardContent className="p-4">
           <div className="flex items-start space-x-3">
             <Info className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" />
             <div>
-              <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-1">Reading Time Calculation</h4>
-              <p className="text-sm text-blue-700 dark:text-blue-200">
-                Reading time is estimated based on an average reading speed of 200 words per minute for adults. 
-                This calculation provides a general estimate and may vary based on text complexity and individual reading habits.
-              </p>
+              <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-1">Analysis Information</h4>
+              <div className="space-y-1 text-sm text-blue-700 dark:text-blue-200">
+                <p>• Reading time is based on 200 words per minute average</p>
+                <p>• Readability uses Flesch Reading Ease and Flesch-Kincaid Grade Level formulas</p>
+                <p>• Keyword density shows the most frequently used words (3+ characters, appearing 2+ times)</p>
+              </div>
             </div>
           </div>
         </CardContent>
