@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useClipboard } from "@/hooks/use-clipboard";
+import { useKeyboardShortcuts, type KeyboardShortcut } from "@/hooks/use-keyboard-shortcuts";
 import { calculateTextStats, type TextStats } from "@/lib/text-utils";
 import { 
   Calculator, 
@@ -66,6 +67,32 @@ File Size: ${stats.fileSize}`;
     link.click();
     URL.revokeObjectURL(url);
   };
+
+  // Tool-specific keyboard shortcuts
+  const shortcuts: KeyboardShortcut[] = [
+    {
+      key: 'c',
+      ctrl: true,
+      shift: true,
+      action: handleCopyAll,
+      description: 'Copy all statistics (Ctrl+Shift+C)'
+    },
+    {
+      key: 'r',
+      ctrl: true,
+      action: handleClear,
+      description: 'Clear text (Ctrl+R)'
+    },
+    {
+      key: 'e',
+      ctrl: true,
+      shift: true,
+      action: handleExport,
+      description: 'Export statistics (Ctrl+Shift+E)'
+    }
+  ];
+
+  useKeyboardShortcuts(shortcuts);
 
   const currentSizeBytes = new Blob([text]).size;
   const isOverLimit = currentSizeBytes > MAX_SIZE_BYTES;

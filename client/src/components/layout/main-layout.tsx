@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Sidebar } from "./sidebar";
 import { Header } from "./header";
+import { useGlobalShortcuts } from "@/hooks/use-keyboard-shortcuts";
 
 interface MainLayoutProps {
   title: string;
@@ -10,6 +11,9 @@ interface MainLayoutProps {
 
 export function MainLayout({ title, description, children }: MainLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  // Enable global keyboard shortcuts
+  useGlobalShortcuts();
 
   return (
     <div className="flex h-screen overflow-hidden">
