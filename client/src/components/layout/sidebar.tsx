@@ -8,10 +8,10 @@ import {
   QrCode, 
   Palette, 
   RefreshCw,
-  Moon,
-  Sun,
   X,
-  Menu
+  Menu,
+  Sun,
+  Moon
 } from "lucide-react";
 
 interface SidebarProps {
@@ -48,7 +48,11 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    if (theme === "dark" || theme === "system") {
+      setTheme("light");
+    } else {
+      setTheme("dark");
+    }
   };
 
   return (
@@ -63,9 +67,9 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       )}
       
       {/* Sidebar */}
-      <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-72 bg-sidebar border-r border-sidebar-border sidebar-transition transform ${
+      <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-sidebar border-r border-sidebar-border sidebar-transition transform lg:static lg:w-72 lg:transform-none lg:translate-x-0 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
-      } lg:translate-x-0`}>
+      } lg:block`}>
         <div className="flex flex-col h-full">
           {/* Logo Header */}
           <div className="flex items-center justify-between p-6 border-b border-sidebar-border">
@@ -100,7 +104,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                         variant={location === item.path ? "default" : "ghost"}
                         className={`w-full justify-start space-x-3 ${
                           location === item.path 
-                            ? "bg-sidebar-primary text-sidebar-primary-foreground font-medium" 
+                            ? "bg-primary text-primary-foreground font-medium hover:bg-primary/90" 
                             : "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                         }`}
                         onClick={() => window.innerWidth < 1024 && onClose()}
@@ -115,25 +119,6 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               </div>
             ))}
           </nav>
-
-          {/* Theme Toggle & Settings */}
-          <div className="p-4 border-t border-sidebar-border">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-sidebar-foreground/70">Theme</span>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={toggleTheme}
-                data-testid="button-theme-toggle"
-              >
-                {theme === "dark" ? (
-                  <Sun className="w-4 h-4" />
-                ) : (
-                  <Moon className="w-4 h-4" />
-                )}
-              </Button>
-            </div>
-          </div>
         </div>
       </aside>
     </>

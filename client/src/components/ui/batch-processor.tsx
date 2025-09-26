@@ -165,7 +165,7 @@ Total Items: ${items.length}`;
         <Button 
           variant="outline"
           size="sm"
-          className="text-primary hover:text-primary"
+          className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
           data-testid={`button-batch-${mode}`}
         >
           <Layers className="w-4 h-4 mr-2" />

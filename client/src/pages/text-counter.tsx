@@ -316,13 +316,13 @@ File Size: ${stats.fileSize}`;
       )}
 
       {/* Information Panel */}
-      <Card className="bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
+      <Card className="bg-primary/5 border-primary/20">
         <CardContent className="p-4">
           <div className="flex items-start space-x-3">
-            <Info className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" />
+            <Info className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
             <div>
-              <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-1">Analysis Information</h4>
-              <div className="space-y-1 text-sm text-blue-700 dark:text-blue-200">
+              <h4 className="font-medium text-primary mb-1">Analysis Information</h4>
+              <div className="space-y-1 text-sm text-primary/80">
                 <p>• Reading time is based on 200 words per minute average</p>
                 <p>• Readability uses Flesch Reading Ease and Flesch-Kincaid Grade Level formulas</p>
                 <p>• Keyword density shows the most frequently used words (3+ characters, appearing 2+ times)</p>

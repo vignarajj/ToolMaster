@@ -22,37 +22,69 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
+  defaultTheme = "light",
   storageKey = "toolmaster-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+  const [theme, setThemeState] = useState<Theme>(
+    () => {
+      if (typeof window !== 'undefined') {
+        return (localStorage.getItem(storageKey) as Theme) || defaultTheme;
+      }
+      return defaultTheme;
+    }
   );
 
   useEffect(() => {
     const root = window.document.documentElement;
+    const body = window.document.body;
 
-    root.classList.remove("light", "dark");
+    const applyTheme = (themeToApply: "dark" | "light") => {
+      // Remove all theme classes first
+      root.classList.remove("light", "dark");
+      
+      // Add the new theme class
+      root.classList.add(themeToApply);
+      
+      // Force apply styles immediately
+      if (themeToApply === "dark") {
+        root.style.colorScheme = "dark";
+        body.style.backgroundColor = "hsl(222, 15%, 7%)";
+        body.style.color = "hsl(210, 40%, 98%)";
+      } else {
+        root.style.colorScheme = "light";
+        body.style.backgroundColor = "hsl(0, 0%, 98%)";
+        body.style.color = "hsl(222, 15%, 20%)";
+      }
+    };
 
+    let effectiveTheme: "dark" | "light";
+    
     if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-
-      root.classList.add(systemTheme);
-      return;
+      effectiveTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      
+      // Listen for system theme changes
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      const handleChange = () => {
+        const newSystemTheme = mediaQuery.matches ? "dark" : "light";
+        applyTheme(newSystemTheme);
+      };
+      
+      mediaQuery.addEventListener("change", handleChange);
+      applyTheme(effectiveTheme);
+      
+      return () => mediaQuery.removeEventListener("change", handleChange);
+    } else {
+      effectiveTheme = theme as "dark" | "light";
+      applyTheme(effectiveTheme);
     }
-
-    root.classList.add(theme);
   }, [theme]);
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
+    setTheme: (newTheme: Theme) => {
+      localStorage.setItem(storageKey, newTheme);
+      setThemeState(newTheme);
     },
   };
 

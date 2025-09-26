@@ -620,13 +620,13 @@ export default function QRCodeGenerator() {
       </Tabs>
 
       {/* Information */}
-      <Card className="bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
+      <Card className="bg-primary/5 border-primary/20">
         <CardContent className="p-4">
           <div className="flex items-start gap-3">
-            <Info className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" />
+            <Info className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
             <div className="space-y-2">
-              <h4 className="font-medium text-blue-900 dark:text-blue-100">Usage Tips</h4>
-              <ul className="text-sm text-blue-700 dark:text-blue-200 space-y-1">
+              <h4 className="font-medium text-primary">Usage Tips</h4>
+              <ul className="text-sm text-primary/80 space-y-1">
                 <li>• <strong>Plain Text:</strong> Any text content you want to share</li>
                 <li>• <strong>URL:</strong> Web addresses that open when scanned</li>
                 <li>• <strong>Email:</strong> Opens email app with pre-filled recipient</li>

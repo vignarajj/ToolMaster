@@ -16,17 +16,20 @@ export function MainLayout({ title, description, children }: MainLayoutProps) {
   useGlobalShortcuts();
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+    <div className="flex h-screen overflow-hidden theme-transition">
+      {/* Sidebar - Only show on mobile/tablet */}
+      <div className="lg:hidden">
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      </div>
       
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden theme-transition">
         <Header 
           title={title}
           description={description}
           onMenuClick={() => setSidebarOpen(true)}
         />
         
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 theme-transition">
           <div className="max-w-7xl mx-auto">
             {children}
           </div>
