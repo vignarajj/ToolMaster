@@ -23,14 +23,14 @@ export function MainLayout({ title, description, children }: MainLayoutProps) {
       </div>
       
       <div className="flex-1 flex flex-col overflow-hidden theme-transition">
-        <Header 
+        <Header
           title={title}
           description={description}
           onMenuClick={() => setSidebarOpen(true)}
         />
         
         <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 theme-transition">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto page-enter">
             {children}
           </div>
         </main>

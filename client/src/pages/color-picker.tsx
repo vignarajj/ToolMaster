@@ -2,127 +2,61 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { useClipboard } from "@/hooks/use-clipboard";
-import { useToast } from "@/hooks/use-toast";
-import { Trash2, Download, Plus, Copy, Search } from "lucide-react";
-
-interface ColorEntry {
-  id: string;
-  name: string;
-  color: string;
-  createdAt: Date;
-}
+import { Copy, Palette, Sparkles } from "lucide-react";
 
 export default function ColorPicker() {
   const [selectedColor, setSelectedColor] = useState("#d45202");
   const [colorName, setColorName] = useState("");
-  const [palette, setPalette] = useState<ColorEntry[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
   const { copyToClipboard } = useClipboard();
-  const { toast } = useToast();
 
-  // Load palette from localStorage on mount
-  useEffect(() => {
-    const saved = localStorage.getItem("color-palette");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setPalette(parsed.map((item: any) => ({
-          ...item,
-          createdAt: new Date(item.createdAt)
-        })));
-      } catch (error) {
-        console.error("Failed to load palette:", error);
-      }
-    }
-  }, []);
-
-  // Save palette to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem("color-palette", JSON.stringify(palette));
-  }, [palette]);
-
-  const addColor = () => {
-    if (!colorName.trim()) {
-      toast({
-        title: "Error",
-        description: "Please enter a name for the color",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Check for duplicate names
-    if (palette.some(color => color.name.toLowerCase() === colorName.toLowerCase())) {
-      toast({
-        title: "Error",
-        description: "Color name already exists",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const newColor: ColorEntry = {
-      id: Date.now().toString(),
-      name: colorName,
-      color: selectedColor,
-      createdAt: new Date(),
-    };
-
-    setPalette(prev => [newColor, ...prev]);
-    setColorName("");
+  // Automatic color naming based on HSL values
+  const getColorName = (hex: string): string => {
+    const rgb = hexToRgb(hex);
+    if (!rgb) return "Unknown Color";
     
-    toast({
-      title: "Success",
-      description: `Color "${colorName}" added to palette`,
-    });
-  };
-
-  const removeColor = (id: string) => {
-    setPalette(prev => prev.filter(color => color.id !== id));
-    toast({
-      title: "Removed",
-      description: "Color removed from palette",
-    });
-  };
-
-  const exportPalette = (format: "json" | "css") => {
-    if (palette.length === 0) {
-      toast({
-        title: "Error",
-        description: "No colors in palette to export",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    let content: string;
-    let filename: string;
-
-    if (format === "json") {
-      content = JSON.stringify(palette, null, 2);
-      filename = `color-palette-${Date.now()}.json`;
+    const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+    const { h, s, l } = hsl;
+    
+    // Determine base color name
+    let baseName = "";
+    if (s < 10) {
+      if (l < 20) baseName = "Black";
+      else if (l > 90) baseName = "White";
+      else if (l < 40) baseName = "Dark Gray";
+      else if (l < 70) baseName = "Gray";
+      else baseName = "Light Gray";
     } else {
-      content = `:root {\n${palette
-        .map(color => `  --color-${color.name.toLowerCase().replace(/\s+/g, '-')}: ${color.color};`)
-        .join('\n')}\n}`;
-      filename = `color-palette-${Date.now()}.css`;
+      if (h < 15 || h >= 345) baseName = "Red";
+      else if (h < 45) baseName = "Orange";
+      else if (h < 75) baseName = "Yellow";
+      else if (h < 150) baseName = "Green";
+      else if (h < 190) baseName = "Cyan";
+      else if (h < 270) baseName = "Blue";
+      else if (h < 330) baseName = "Purple";
+      else baseName = "Pink";
     }
-
-    const blob = new Blob([content], { type: format === "json" ? "application/json" : "text/css" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    link.click();
-    URL.revokeObjectURL(url);
+    
+    // Add modifiers based on saturation and lightness
+    let modifiers = [];
+    
+    if (s > 80) modifiers.push("Vibrant");
+    else if (s > 50) modifiers.push("Rich");
+    else if (s > 25) modifiers.push("Muted");
+    else if (s > 10) modifiers.push("Pale");
+    
+    if (l < 20) modifiers.push("Deep");
+    else if (l < 40) modifiers.push("Dark");
+    else if (l > 80) modifiers.push("Light");
+    else if (l > 60) modifiers.push("Bright");
+    
+    return modifiers.length > 0 ? `${modifiers.join(" ")} ${baseName}` : baseName;
   };
 
-  const filteredPalette = palette.filter(color =>
-    color.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    color.color.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Update color name automatically when color changes
+  useEffect(() => {
+    setColorName(getColorName(selectedColor));
+  }, [selectedColor]);
 
   const hexToRgb = (hex: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -131,17 +65,6 @@ export default function ColorPicker() {
       g: parseInt(result[2], 16),
       b: parseInt(result[3], 16)
     } : null;
-  };
-
-  const getColorInfo = (hex: string) => {
-    const rgb = hexToRgb(hex);
-    if (!rgb) return null;
-    
-    return {
-      hex: hex.toUpperCase(),
-      rgb: `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
-      hsl: rgbToHsl(rgb.r, rgb.g, rgb.b),
-    };
   };
 
   const rgbToHsl = (r: number, g: number, b: number) => {
@@ -167,208 +90,177 @@ export default function ColorPicker() {
       h /= 6;
     }
 
-    return `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
+    return {
+      h: Math.round(h * 360),
+      s: Math.round(s * 100),
+      l: Math.round(l * 100),
+      string: `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`
+    };
+  };
+
+  const getColorInfo = (hex: string) => {
+    const rgb = hexToRgb(hex);
+    if (!rgb) return null;
+    
+    const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+    
+    return {
+      hex: hex.toUpperCase(),
+      rgb: `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
+      hsl: hsl.string,
+      name: getColorName(hex)
+    };
   };
 
   const colorInfo = getColorInfo(selectedColor);
 
+  const copyAllFormats = () => {
+    if (!colorInfo) return;
+    
+    const allFormats = `Color: ${colorInfo.name}
+HEX: ${colorInfo.hex}
+RGB: ${colorInfo.rgb}
+HSL: ${colorInfo.hsl}`;
+    
+    copyToClipboard(allFormats, "All color formats copied");
+  };
+
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Color Picker */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Color Picker</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Selected Color</label>
-              <div className="flex items-center space-x-4">
+    <div className="space-y-6 fade-in">
+      {/* Main Color Picker */}
+      <Card className="card-hover bg-card border-border">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-foreground">
+            <Palette className="w-5 h-5 text-primary" />
+            Color Picker
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Color Input Section */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-center">
+              <div className="relative group">
                 <input
                   type="color"
                   value={selectedColor}
                   onChange={(e) => setSelectedColor(e.target.value)}
-                  className="w-16 h-16 rounded-md border border-border cursor-pointer"
+                  className="w-32 h-32 rounded-2xl border-4 border-border cursor-pointer shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl glow-primary"
                   data-testid="input-color-picker"
                 />
-                <div className="flex-1">
-                  <Input
-                    value={selectedColor}
-                    onChange={(e) => setSelectedColor(e.target.value)}
-                    placeholder="#000000"
-                    data-testid="input-color-hex"
-                  />
+                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="bg-primary text-primary-foreground px-2 py-1 rounded text-xs">
+                    Click to pick
+                  </div>
                 </div>
               </div>
             </div>
 
-            {colorInfo && (
-              <div className="space-y-3">
-                <h4 className="font-medium">Color Information</h4>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between p-2 bg-muted rounded">
-                    <span className="text-sm font-mono">{colorInfo.hex}</span>
+            <div className="text-center space-y-2">
+              <div className="flex items-center justify-center gap-2">
+                <Sparkles className="w-4 h-4 text-primary animate-pulse-enhanced" />
+                <h3 className="text-lg font-semibold text-foreground">{colorName}</h3>
+                <Sparkles className="w-4 h-4 text-primary animate-pulse-enhanced" />
+              </div>
+              <Input
+                value={selectedColor}
+                onChange={(e) => setSelectedColor(e.target.value)}
+                placeholder="#000000"
+                className="text-center font-mono input-transition"
+                data-testid="input-color-hex"
+              />
+            </div>
+          </div>
+
+          {/* Color Information Grid */}
+          {colorInfo && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 stagger-children">
+              <Card className="card-hover animate-fade-in">
+                <CardContent className="p-4 text-center">
+                  <div className="space-y-2">
+                    <h4 className="font-medium text-muted-foreground">HEX</h4>
+                    <p className="text-lg font-mono font-bold text-foreground">{colorInfo.hex}</p>
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
                       onClick={() => copyToClipboard(colorInfo.hex, "HEX copied")}
+                      className="w-full btn-interactive hover:btn-primary-enhanced hover:force-primary"
                       data-testid="button-copy-hex"
                     >
-                      <Copy className="w-3 h-3" />
+                      <Copy className="w-3 h-3 mr-2" />
+                      Copy HEX
                     </Button>
                   </div>
-                  <div className="flex items-center justify-between p-2 bg-muted rounded">
-                    <span className="text-sm font-mono">{colorInfo.rgb}</span>
+                </CardContent>
+              </Card>
+
+              <Card className="card-hover animate-fade-in">
+                <CardContent className="p-4 text-center">
+                  <div className="space-y-2">
+                    <h4 className="font-medium text-muted-foreground">RGB</h4>
+                    <p className="text-lg font-mono font-bold text-foreground">{colorInfo.rgb}</p>
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
                       onClick={() => copyToClipboard(colorInfo.rgb, "RGB copied")}
+                      className="w-full btn-interactive hover:btn-primary-enhanced hover:force-primary"
                       data-testid="button-copy-rgb"
                     >
-                      <Copy className="w-3 h-3" />
+                      <Copy className="w-3 h-3 mr-2" />
+                      Copy RGB
                     </Button>
                   </div>
-                  <div className="flex items-center justify-between p-2 bg-muted rounded">
-                    <span className="text-sm font-mono">{colorInfo.hsl}</span>
+                </CardContent>
+              </Card>
+
+              <Card className="card-hover animate-fade-in">
+                <CardContent className="p-4 text-center">
+                  <div className="space-y-2">
+                    <h4 className="font-medium text-muted-foreground">HSL</h4>
+                    <p className="text-lg font-mono font-bold text-foreground">{colorInfo.hsl}</p>
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
                       onClick={() => copyToClipboard(colorInfo.hsl, "HSL copied")}
+                      className="w-full btn-interactive hover:btn-primary-enhanced hover:force-primary"
                       data-testid="button-copy-hsl"
                     >
-                      <Copy className="w-3 h-3" />
+                      <Copy className="w-3 h-3 mr-2" />
+                      Copy HSL
                     </Button>
                   </div>
-                </div>
-              </div>
-            )}
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Color Name</label>
-              <div className="flex space-x-2">
-                <Input
-                  value={colorName}
-                  onChange={(e) => setColorName(e.target.value)}
-                  placeholder="Enter color name..."
-                  data-testid="input-color-name"
-                />
-                <Button onClick={addColor} data-testid="button-add-color">
-                  <Plus className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Palette Actions */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Palette Actions</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Search Colors</label>
-              <div className="relative">
-                <Search className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                <Input
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search by name or color..."
-                  className="pl-10"
-                  data-testid="input-search"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium">Export Options</h4>
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  onClick={() => exportPalette("json")}
-                  disabled={palette.length === 0}
-                  data-testid="button-export-json"
-                >
-                  <Download className="w-4 h-4 mr-2" />
-                  Export JSON
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => exportPalette("css")}
-                  disabled={palette.length === 0}
-                  data-testid="button-export-css"
-                >
-                  <Download className="w-4 h-4 mr-2" />
-                  Export CSS
-                </Button>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-border">
-              <div className="text-center text-sm text-muted-foreground">
-                <p>{palette.length} colors in palette</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Color Palette Grid */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Color Palette</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {filteredPalette.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              {palette.length === 0 ? (
-                <p>No colors in your palette. Add some colors to get started!</p>
-              ) : (
-                <p>No colors match your search.</p>
-              )}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {filteredPalette.map((color) => (
-                <div
-                  key={color.id}
-                  className="group relative bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
-                >
-                  <div
-                    className="h-20 w-full"
-                    style={{ backgroundColor: color.color }}
-                  />
-                  <div className="p-3">
-                    <h4 className="font-medium truncate">{color.name}</h4>
-                    <p className="text-sm text-muted-foreground font-mono">{color.color.toUpperCase()}</p>
-                    <div className="flex items-center justify-between mt-2">
-                      <Badge variant="secondary" className="text-xs">
-                        {color.createdAt.toLocaleDateString()}
-                      </Badge>
-                      <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => copyToClipboard(color.color, `${color.name} copied`)}
-                          data-testid={`button-copy-color-${color.id}`}
-                        >
-                          <Copy className="w-3 h-3" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeColor(color.id)}
-                          data-testid={`button-delete-color-${color.id}`}
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                </CardContent>
+              </Card>
             </div>
           )}
+
+          {/* Quick Actions */}
+          <div className="flex justify-center">
+            <Button
+              onClick={copyAllFormats}
+              className="btn-primary-enhanced force-primary btn-interactive glow-primary"
+              data-testid="button-copy-all-formats"
+            >
+              <Copy className="w-4 h-4 mr-2" />
+              Copy All Formats
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Color Information Panel */}
+      <Card className="bg-primary/5 border-primary/20 slide-in-left">
+        <CardContent className="p-4">
+          <div className="flex items-start space-x-3">
+            <Palette className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 animate-float" />
+            <div>
+              <h4 className="font-medium text-primary mb-1">Color Information</h4>
+              <div className="space-y-1 text-sm text-primary/80">
+                <p>• Color names are automatically generated based on hue, saturation, and lightness</p>
+                <p>• All color formats (HEX, RGB, HSL) are available for easy copying</p>
+                <p>• Click the color wheel to pick any color you need</p>
+              </div>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>

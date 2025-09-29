@@ -162,20 +162,20 @@ Total Items: ${items.length}`;
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button 
+        <Button
           variant="outline"
           size="sm"
-          className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+          className="btn-primary-enhanced force-primary menu-bounce border-primary"
           data-testid={`button-batch-${mode}`}
         >
           <Layers className="w-4 h-4 mr-2" />
           Batch {modeTitle}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Layers className="w-5 h-5" />
+      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-card border-border fade-in">
+        <DialogHeader className="fade-in">
+          <DialogTitle className="flex items-center gap-2 text-foreground">
+            <Layers className="w-5 h-5 text-primary" />
             Batch {modeTitle}
           </DialogTitle>
         </DialogHeader>
@@ -196,10 +196,10 @@ Total Items: ${items.length}`;
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="input" className="space-y-4">
-            <Card>
+          <TabsContent value="input" className="space-y-4 fade-in">
+            <Card className="card-hover bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-base">Add Texts to Process</CardTitle>
+                <CardTitle className="text-base text-foreground">Add Texts to Process</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
@@ -331,6 +331,7 @@ Total Items: ${items.length}`;
                         onClick={processBatch}
                         disabled={processing || items.length === 0}
                         data-testid="button-start-processing"
+                        className="btn-primary-enhanced force-primary menu-bounce"
                       >
                         <Play className="w-4 h-4 mr-2" />
                         {processing ? 'Processing...' : 'Start Processing'}
@@ -370,21 +371,21 @@ Total Items: ${items.length}`;
                 </AlertDescription>
               </Alert>
             ) : (
-              <div className="space-y-4">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle className="text-base">Results Summary</CardTitle>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm" onClick={copySummary}>
-                        <Copy className="w-4 h-4 mr-2" />
-                        Copy Summary
-                      </Button>
-                      <Button variant="outline" size="sm" onClick={exportResults}>
-                        <Download className="w-4 h-4 mr-2" />
-                        Export
-                      </Button>
-                    </div>
-                  </CardHeader>
+              <div className="space-y-4 fade-in">
+              <Card className="card-hover bg-card border-border">
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle className="text-base text-foreground">Results Summary</CardTitle>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm" onClick={copySummary} className="menu-bounce hover:btn-primary-enhanced hover:force-primary">
+                      <Copy className="w-4 h-4 mr-2" />
+                      Copy Summary
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={exportResults} className="menu-bounce hover:btn-primary-enhanced hover:force-primary">
+                      <Download className="w-4 h-4 mr-2" />
+                      Export
+                    </Button>
+                  </div>
+                </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-3 gap-4 text-center">
                       <div>

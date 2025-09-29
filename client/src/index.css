@@ -84,7 +84,7 @@
   body {
     @apply font-sans antialiased bg-background text-foreground;
     font-family: 'Inter', system-ui, sans-serif;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     /* Ensure background color is always applied */
     background-color: hsl(var(--background)) !important;
     color: hsl(var(--foreground)) !important;
@@ -92,7 +92,38 @@
 
   /* Smooth transitions for theme changes */
   .theme-transition {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Enhanced primary button styling for both themes */
+  .btn-primary-enhanced {
+    background-color: hsl(23 95% 42%) !important;
+    color: hsl(0 0% 100%) !important;
+    border: 1px solid hsl(23 95% 42%) !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .btn-primary-enhanced:hover {
+    background-color: hsl(23 95% 38%) !important;
+    border-color: hsl(23 95% 38%) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(235, 108, 33, 0.3);
+  }
+
+  .btn-primary-enhanced:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(235, 108, 33, 0.2);
+  }
+
+  /* Force primary colors in both themes */
+  .force-primary {
+    background-color: hsl(23 95% 42%) !important;
+    color: hsl(0 0% 100%) !important;
+  }
+
+  .force-primary:hover {
+    background-color: hsl(23 95% 38%) !important;
+    color: hsl(0 0% 100%) !important;
   }
 
   /* Better scrollbar styling for both themes */
@@ -118,9 +149,20 @@
     @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
   }
 
-  /* Improved button transitions */
+  /* Enhanced button transitions */
   .btn-transition {
-    transition: all 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+  }
+
+  .btn-transition:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -5px rgba(235, 108, 33, 0.3);
+  }
+
+  .btn-transition:active {
+    transform: translateY(0);
+    transition-duration: 0.1s;
   }
   
   /* Primary button styling */
@@ -138,24 +180,73 @@
     color: hsl(var(--primary)) !important;
   }
 
-  /* Card hover effects */
+  /* Enhanced card hover effects */
   .card-hover {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
   }
 
   .card-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.1);
   }
 
-  /* Input field transitions */
+  /* Menu bounce effects */
+  .menu-bounce {
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .menu-bounce:hover {
+    transform: scale(1.05) translateY(-2px);
+    animation: bounce-subtle 0.6s ease-in-out;
+  }
+
+  .menu-bounce:active {
+    transform: scale(0.98);
+    transition-duration: 0.1s;
+  }
+
+  /* Enhanced input field transitions */
   .input-transition {
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .input-transition:focus {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(235, 108, 33, 0.1);
   }
 
   /* Badge transitions */
   .badge-transition {
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .badge-transition:hover {
+    transform: scale(1.05);
+  }
+
+  /* Fade in animations */
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .slide-in-right {
+    animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .slide-in-left {
+    animation: slideInLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Loading pulse animation */
+  .pulse-enhanced {
+    animation: pulseEnhanced 2s infinite;
+  }
+
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: 0 0 20px rgba(235, 108, 33, 0.3);
+    animation: glow 2s infinite alternate;
   }
 }
 
@@ -346,4 +437,114 @@
   .dark ::-webkit-scrollbar-thumb:hover {
     background-color: hsl(215 20% 80%);
   }
+}
+
+
+/* Additional animations and keyframes */
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  0% { transform: translateX(100%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  0% { transform: translateX(-100%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes pulseEnhanced {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 20px rgba(235, 108, 33, 0.3); }
+  100% { box-shadow: 0 0 30px rgba(235, 108, 33, 0.6); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Modal and dialog improvements */
+.dialog-content {
+  background-color: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--card-foreground)) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+.dark .dialog-content {
+  background-color: hsl(var(--card)) !important;
+  border-color: hsl(var(--border)) !important;
+  color: hsl(var(--card-foreground)) !important;
+}
+
+/* Enhanced button states */
+.btn-interactive {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.btn-interactive:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px -5px rgba(235, 108, 33, 0.3);
+}
+
+.btn-interactive:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: 0.1s;
+}
+
+/* Staggered animations */
+.stagger-children > * {
+  animation-fill-mode: both;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+.stagger-children > *:nth-child(7) { animation-delay: 0.7s; }
+.stagger-children > *:nth-child(8) { animation-delay: 0.8s; }
+
+/* Page entrance animations */
+.page-enter {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.cards-enter {
+  animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Button group animations */
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.button-group .btn-enhanced {
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.button-group .btn-enhanced:hover {
+  transform: scale(1.05) translateY(-2px);
 }

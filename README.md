@@ -1,17 +1,28 @@
-# REST Express Application
+# ToolMaster - Professional Developer Tools Suite
 
-A modern full-stack web application built with React, TypeScript, Express, and PostgreSQL. This application features a responsive design with dark theme support, comprehensive testing suite, and modern UI components.
+A modern full-stack web application built with React, TypeScript, Express, and PostgreSQL. ToolMaster provides a comprehensive suite of developer tools with a beautiful, responsive interface featuring a custom logo and optimized mobile navigation.
+
+## ✨ New Features
+
+- **🎨 Beautiful Custom Logo**: Professional gradient-based logo with tool icons
+- **📱 Mobile-First Navigation**: Hamburger menu for mobile, horizontal navigation for desktop
+- **🎯 Responsive Header**: Adaptive layout that works seamlessly across all devices
+- **⚡ Production Ready**: Optimized build with Docker support and deployment configurations
 
 ## 🚀 Features
 
 - **Modern UI/UX**: Built with React, TypeScript, and Tailwind CSS
+- **Custom Branding**: Beautiful logo design with tool-themed iconography
 - **Dark Theme**: Complete dark/light theme support with persistence
 - **Responsive Design**: Mobile-first responsive design that works across all devices
+- **Mobile Navigation**: Hamburger menu with smooth animations and categorized tools
+- **Desktop Navigation**: Clean horizontal navigation bar for larger screens
 - **Accessibility**: WCAG compliant with proper focus indicators and color contrast
 - **Testing**: Comprehensive E2E testing with Playwright
 - **Database**: PostgreSQL with Drizzle ORM for type-safe database operations
 - **Authentication**: Passport.js based authentication system
 - **Real-time**: WebSocket support for real-time features
+- **Production Ready**: Docker configuration with multi-stage builds
 
 ## 🛠️ Tech Stack
 
@@ -92,13 +103,44 @@ npm run db:migrate
 # Development mode
 npm run dev
 
-# Or use the shell script
-./run.sh
+# Or use the shell script (recommended)
+./run.sh --skip-db-check
 ```
 
 The application will be available at:
-- **Frontend**: http://localhost:5173
+- **Frontend**: http://localhost:5173 (development) or configured port
 - **Backend API**: http://localhost:3000
+
+## 🐳 Docker Deployment
+
+### Quick Start with Docker Compose
+```bash
+# Create and configure environment
+cp .env.production .env
+# Edit .env with your database credentials
+
+# Start the full stack
+docker-compose up -d
+
+# Check status
+docker-compose logs -f toolmaster
+```
+
+### Build and Run Manually
+```bash
+# Build the Docker image
+docker build -t toolmaster .
+
+# Run the container
+docker run -d \
+  --name toolmaster \
+  -p 3000:3000 \
+  -e NODE_ENV=production \
+  -e SESSION_SECRET=your-secure-secret \
+  toolmaster
+```
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## 🧪 Testing
 

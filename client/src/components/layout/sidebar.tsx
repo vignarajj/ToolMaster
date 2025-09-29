@@ -1,15 +1,15 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
-import { 
-  Calculator, 
-  Code, 
-  Key, 
-  QrCode, 
-  Palette, 
+import { Logo } from "@/components/ui/logo";
+import {
+  Calculator,
+  Code,
+  Key,
+  QrCode,
+  Palette,
   RefreshCw,
   X,
-  Menu,
   Sun,
   Moon
 } from "lucide-react";
@@ -73,12 +73,10 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         <div className="flex flex-col h-full">
           {/* Logo Header */}
           <div className="flex items-center justify-between p-6 border-b border-sidebar-border">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <Menu className="w-4 h-4 text-primary-foreground" />
-              </div>
+            <Link href="/" className="flex items-center space-x-3 group" onClick={onClose}>
+              <Logo size={32} className="transition-transform group-hover:scale-105" />
               <span className="font-bold text-xl text-sidebar-foreground">ToolMaster</span>
-            </div>
+            </Link>
             <Button 
               variant="ghost" 
               size="sm"
@@ -102,10 +100,10 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                     <Link key={item.path} href={item.path}>
                       <Button
                         variant={location === item.path ? "default" : "ghost"}
-                        className={`w-full justify-start space-x-3 ${
-                          location === item.path 
-                            ? "bg-primary text-primary-foreground font-medium hover:bg-primary/90" 
-                            : "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                        className={`w-full justify-start space-x-3 menu-bounce fade-in ${
+                          location === item.path
+                            ? "btn-primary-enhanced force-primary font-medium"
+                            : "hover:btn-primary-enhanced hover:force-primary"
                         }`}
                         onClick={() => window.innerWidth < 1024 && onClose()}
                         data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}

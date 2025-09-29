@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { BatchProcessor } from "@/components/ui/batch-processor";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useKeyboardShortcuts, type KeyboardShortcut } from "@/hooks/use-keyboard-shortcuts";
 import { calculateTextStats, type TextStats } from "@/lib/text-utils";
@@ -112,9 +111,9 @@ File Size: ${stats.fileSize}`;
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 fade-in">
       {/* Input Section */}
-      <Card>
+      <Card className="card-hover bg-card border-border">
         <CardContent className="p-6">
           <div className="mb-4">
             <label htmlFor="text-input" className="block text-sm font-medium text-foreground mb-2">
@@ -124,7 +123,7 @@ File Size: ${stats.fileSize}`;
               <Textarea
                 id="text-input"
                 placeholder="Start typing to see real-time statistics..."
-                className="min-h-40 resize-none"
+                className="min-h-40 resize-none input-transition"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 data-testid="textarea-text-input"
@@ -137,11 +136,11 @@ File Size: ${stats.fileSize}`;
             </div>
             <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
               <span>Maximum text size: {MAX_SIZE_KB}KB</span>
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="sm"
                 onClick={handleClear}
-                className="text-primary hover:text-primary/80 h-auto p-0"
+                className="text-primary hover:text-primary/80 h-auto p-0 menu-bounce"
                 data-testid="button-clear"
               >
                 <Trash2 className="w-3 h-3 mr-1" />
@@ -158,13 +157,13 @@ File Size: ${stats.fileSize}`;
       </Card>
 
       {/* Statistics Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
         {statCards.map((stat, index) => (
-          <Card key={stat.label} className="stat-card">
+          <Card key={stat.label} className="stat-card card-hover bg-card border-border animate-fade-in">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${stat.color}`}>
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${stat.color} float`}>
                     <stat.icon className="w-5 h-5" />
                   </div>
                   <div>
@@ -175,7 +174,7 @@ File Size: ${stats.fileSize}`;
                 <Button
                   variant="outline"
                   size="sm"
-                  className="copy-btn"
+                  className="copy-btn menu-bounce hover:btn-primary-enhanced hover:force-primary btn-interactive"
                   onClick={() => copyToClipboard(stat.value.toString(), `${stat.label} copied`)}
                   data-testid={`button-copy-${stat.label.toLowerCase().replace(/\s+/g, '-')}`}
                 >
@@ -188,30 +187,32 @@ File Size: ${stats.fileSize}`;
       </div>
 
       {/* Additional Actions */}
-      <Card>
+      <Card className="card-hover bg-card border-border">
         <CardContent className="p-6">
           <h3 className="text-lg font-semibold text-foreground mb-4">Quick Actions</h3>
-          <div className="flex flex-wrap gap-3">
-            <BatchProcessor mode="counter" />
-            <Button 
+          <div className="flex flex-wrap gap-3 button-group">
+            <Button
               onClick={handleCopyAll}
               data-testid="button-copy-all"
+              className="btn-primary-enhanced force-primary btn-enhanced btn-interactive"
             >
               <Copy className="w-4 h-4 mr-2" />
               Copy All Stats
             </Button>
-            <Button 
+            <Button
               variant="secondary"
               onClick={handleExport}
               data-testid="button-export"
+              className="btn-enhanced btn-interactive hover:btn-primary-enhanced hover:force-primary"
             >
               <Download className="w-4 h-4 mr-2" />
               Export Stats
             </Button>
-            <Button 
+            <Button
               variant="outline"
               onClick={handleClear}
               data-testid="button-reset"
+              className="btn-enhanced btn-interactive hover:btn-primary-enhanced hover:force-primary"
             >
               <RotateCcw className="w-4 h-4 mr-2" />
               Reset
@@ -222,7 +223,7 @@ File Size: ${stats.fileSize}`;
 
       {/* Readability Analysis */}
       {stats.readability && (
-        <Card>
+        <Card className="card-hover bg-card border-border slide-in-left">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3 mb-4">
               <BookOpen className="w-5 h-5 text-primary" />
@@ -259,6 +260,7 @@ File Size: ${stats.fileSize}`;
                     "Readability analysis copied"
                   )}
                   data-testid="button-copy-readability"
+                  className="menu-bounce hover:btn-primary-enhanced hover:force-primary"
                 >
                   <Copy className="w-4 h-4 mr-2" />
                   Copy Analysis
@@ -271,7 +273,7 @@ File Size: ${stats.fileSize}`;
 
       {/* Keyword Density */}
       {stats.keywordDensity && stats.keywordDensity.length > 0 && (
-        <Card>
+        <Card className="card-hover bg-card border-border slide-in-right">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3 mb-4">
               <TrendingUp className="w-5 h-5 text-primary" />
