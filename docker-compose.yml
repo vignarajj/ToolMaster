@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # Main application service
+  toolmaster:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - SESSION_SECRET=${SESSION_SECRET:-change-this-secret-in-production}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:password@db:5432/toolmaster}
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - toolmaster-network
+
+  # PostgreSQL database service
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=toolmaster
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - toolmaster-network
+
+  # Redis for session storage (optional)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - toolmaster-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  toolmaster-network:
+    driver: bridge

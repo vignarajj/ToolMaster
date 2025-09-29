@@ -1,0 +1,120 @@
+[debug] [2025-09-29T10:12:48.650Z] Checked if tokens are valid: false, expires at: 1758730154891
+[debug] [2025-09-29T10:12:48.653Z] Checked if tokens are valid: false, expires at: 1758730154891
+[debug] [2025-09-29T10:12:48.653Z] > refreshing access token with scopes: []
+[debug] [2025-09-29T10:12:48.654Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-09-29T10:12:48.654Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-09-29T10:12:48.665Z] Checked if tokens are valid: false, expires at: 1758730154891
+[debug] [2025-09-29T10:12:48.666Z] Checked if tokens are valid: false, expires at: 1758730154891
+[debug] [2025-09-29T10:12:48.666Z] > refreshing access token with scopes: []
+[debug] [2025-09-29T10:12:48.666Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-09-29T10:12:48.666Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-09-29T10:12:48.667Z] Checked if tokens are valid: false, expires at: 1758730154891
+[debug] [2025-09-29T10:12:48.667Z] Checked if tokens are valid: false, expires at: 1758730154891
+[debug] [2025-09-29T10:12:48.667Z] > refreshing access token with scopes: []
+[debug] [2025-09-29T10:12:48.667Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-09-29T10:12:48.667Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-09-29T10:12:48.667Z] Checked if tokens are valid: false, expires at: 1758730154891
+[debug] [2025-09-29T10:12:48.667Z] Checked if tokens are valid: false, expires at: 1758730154891
+[debug] [2025-09-29T10:12:48.667Z] > refreshing access token with scopes: []
+[debug] [2025-09-29T10:12:48.667Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-09-29T10:12:48.667Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-09-29T10:12:48.850Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-09-29T10:12:48.851Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-09-29T10:12:48.883Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-09-29T10:12:48.883Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:12:48.885Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-09-29T10:12:48.885Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-09-29T10:12:48.914Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com [none]
+[debug] [2025-09-29T10:12:48.914Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:12:48.915Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-09-29T10:12:48.915Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-09-29T10:12:48.963Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ [none]
+[debug] [2025-09-29T10:12:48.963Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:12:48.964Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-09-29T10:12:48.964Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-09-29T10:12:48.974Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com [none]
+[debug] [2025-09-29T10:12:48.974Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:12:49.149Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:12:49.149Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:12:49.150Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:12:49.150Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:12:49.150Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:12:49.150Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:12:49.150Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:12:49.150Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:12:49.150Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ [none]
+[debug] [2025-09-29T10:12:49.150Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:12:49.151Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com [none]
+[debug] [2025-09-29T10:12:49.151Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:12:49.151Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-09-29T10:12:49.151Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:12:49.151Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com [none]
+[debug] [2025-09-29T10:12:49.151Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:12:50.756Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com 403
+[debug] [2025-09-29T10:12:50.756Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com [omitted]
+[debug] [2025-09-29T10:12:50.783Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-09-29T10:12:50.783Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-09-29T10:12:50.844Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com 200
+[debug] [2025-09-29T10:12:50.844Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com [omitted]
+[debug] [2025-09-29T10:12:51.177Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ 200
+[debug] [2025-09-29T10:12:51.177Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ [omitted]
+[debug] [2025-09-29T10:12:52.151Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-29T10:12:52.151Z] > authorizing via signed-in user (coffeewebtech@gmail.com)
+[debug] [2025-09-29T10:12:52.401Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com 403
+[debug] [2025-09-29T10:12:52.401Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com [omitted]
+[debug] [2025-09-29T10:12:52.525Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-09-29T10:12:52.525Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-09-29T10:12:52.598Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com 200
+[debug] [2025-09-29T10:12:52.598Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com [omitted]
+[debug] [2025-09-29T10:12:52.907Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ 200
+[debug] [2025-09-29T10:12:52.907Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ [omitted]
+[debug] [2025-09-29T10:13:13.906Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.908Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.908Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.908Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.908Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.908Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.909Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.909Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.909Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ [none]
+[debug] [2025-09-29T10:13:13.909Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:13:13.919Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com [none]
+[debug] [2025-09-29T10:13:13.919Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:13:13.920Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-09-29T10:13:13.920Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:13:13.920Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com [none]
+[debug] [2025-09-29T10:13:13.920Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:13:13.930Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.932Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.933Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.933Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.933Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.933Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.933Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.933Z] Checked if tokens are valid: true, expires at: 1759144367965
+[debug] [2025-09-29T10:13:13.933Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ [none]
+[debug] [2025-09-29T10:13:13.933Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:13:13.934Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com [none]
+[debug] [2025-09-29T10:13:13.934Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:13:13.934Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-09-29T10:13:13.934Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:13:13.934Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com [none]
+[debug] [2025-09-29T10:13:13.934Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com x-goog-quota-user=projects/coffeeweb-dev
+[debug] [2025-09-29T10:13:15.638Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com 403
+[debug] [2025-09-29T10:13:15.638Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com [omitted]
+[debug] [2025-09-29T10:13:15.639Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com 403
+[debug] [2025-09-29T10:13:15.639Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseio.com [omitted]
+[debug] [2025-09-29T10:13:15.689Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com 200
+[debug] [2025-09-29T10:13:15.689Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com [omitted]
+[debug] [2025-09-29T10:13:15.740Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com 200
+[debug] [2025-09-29T10:13:15.740Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebasecrashlytics.googleapis.com [omitted]
+[debug] [2025-09-29T10:13:15.742Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-09-29T10:13:15.742Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-09-29T10:13:15.751Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-09-29T10:13:15.751Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-09-29T10:13:15.993Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ 200
+[debug] [2025-09-29T10:13:15.993Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ [omitted]
+[debug] [2025-09-29T10:13:16.080Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ 200
+[debug] [2025-09-29T10:13:16.080Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/coffeeweb-dev/services/ [omitted]
+[debug] [2025-09-29T10:13:16.081Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-29T10:13:16.081Z] > authorizing via signed-in user (coffeewebtech@gmail.com)
