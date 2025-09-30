@@ -283,6 +283,33 @@ SESSION_SECRET=your-production-secret-key
 
 ### Deployment Platforms
 
+#### GitHub Pages (Free Static Hosting)
+
+GitHub Pages is perfect for hosting the frontend of your ToolMaster application for free. The backend API will need to be hosted separately.
+
+**Setup Instructions:**
+
+1. **Enable GitHub Pages in Repository Settings**
+   - Go to your repository on GitHub
+   - Click Settings → Pages
+   - Source: GitHub Actions
+   - Save
+
+2. **Automatic Deployment**
+   - The GitHub Actions workflow (`.github/workflows/deploy.yml`) will automatically deploy your frontend to GitHub Pages when you push to the main branch
+   - Your site will be available at: `https://yourusername.github.io/ToolMaster/`
+
+3. **Manual Deployment (Optional)**
+   ```bash
+   # Build for GitHub Pages
+   npm run build:pages
+   
+   # The built files will be in the dist/ folder
+   # You can manually deploy these to GitHub Pages
+   ```
+
+**Note:** GitHub Pages only hosts static files. The backend API (Express server, database, etc.) will need to be deployed separately to services like Railway, Render, or Heroku.
+
 #### Vercel (Recommended for Frontend)
 
 1. **Frontend Deployment**
