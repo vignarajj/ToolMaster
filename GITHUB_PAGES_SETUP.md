@@ -13,19 +13,28 @@ This guide will help you deploy your ToolMaster frontend to GitHub Pages for fre
 
 ### 2. Fix GitHub Actions Permissions (Important!)
 
-The error you encountered is due to GitHub Actions permissions. I've updated the workflow to fix this:
+The error you encountered is due to GitHub Actions permissions and missing environment configuration. I've updated the workflow to fix both issues:
 
-**Option A: Modern GitHub Pages Deployment (Recommended)**
+**Current Active Workflows:**
+
+**Main Workflow** (`.github/workflows/deploy.yml`):
 - Uses the latest GitHub Actions for Pages
+- Includes required `environment: github-pages` configuration
 - Automatically handles permissions
 - More secure and reliable
 
-**Option B: Traditional Deployment**
-- Uses the peaceiris/actions-gh-pages action
-- Includes proper user configuration
-- Fallback option if Option A doesn't work
+**Simple Workflow** (`.github/workflows/deploy-simple.yml`):
+- Simplified version of the main workflow
+- Same modern GitHub Pages approach
+- Clean configuration without extra complexity
 
-Both workflows are now configured with proper permissions. The main workflow (`.github/workflows/deploy.yml`) uses the modern approach.
+**Disabled Workflows:**
+- `deploy-alternative.yml.disabled` - Disabled due to permission issues with peaceiris action
+
+Both active workflows include:
+- Proper `permissions` section
+- Required `environment: github-pages` configuration
+- Automatic URL deployment tracking
 
 ### 2. Automatic Deployment
 
