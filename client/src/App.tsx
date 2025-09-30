@@ -13,9 +13,8 @@ import QRCode from "@/pages/qr-code";
 import ColorPicker from "@/pages/color-picker";
 import NotFound from "@/pages/not-found";
 
-// Determine if we're running on GitHub Pages
-const isGitHubPages = window.location.hostname.includes('github.io');
-const basePath = isGitHubPages ? '/ToolMaster' : '';
+// Use Vite's BASE_URL which is set correctly in production
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, ''); // Remove trailing slash
 
 function AppRouter() {
   return (
