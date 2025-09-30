@@ -297,7 +297,7 @@ GitHub Pages is perfect for hosting the frontend of your ToolMaster application 
 
 2. **Automatic Deployment**
    - The GitHub Actions workflow (`.github/workflows/deploy.yml`) will automatically deploy your frontend to GitHub Pages when you push to the main branch
-   - Your site will be available at: `https://yourusername.github.io/ToolMaster/`
+   - Your site will be available at: `https://vignaraj.dev/ToolMaster/`
 
 3. **Manual Deployment (Optional)**
    ```bash

@@ -11,6 +11,22 @@ This guide will help you deploy your ToolMaster frontend to GitHub Pages for fre
 3. Under **Source**, select **GitHub Actions**
 4. Click **Save**
 
+### 2. Fix GitHub Actions Permissions (Important!)
+
+The error you encountered is due to GitHub Actions permissions. I've updated the workflow to fix this:
+
+**Option A: Modern GitHub Pages Deployment (Recommended)**
+- Uses the latest GitHub Actions for Pages
+- Automatically handles permissions
+- More secure and reliable
+
+**Option B: Traditional Deployment**
+- Uses the peaceiris/actions-gh-pages action
+- Includes proper user configuration
+- Fallback option if Option A doesn't work
+
+Both workflows are now configured with proper permissions. The main workflow (`.github/workflows/deploy.yml`) uses the modern approach.
+
 ### 2. Automatic Deployment
 
 The GitHub Actions workflow (`.github/workflows/deploy.yml`) will automatically:
@@ -22,7 +38,7 @@ The GitHub Actions workflow (`.github/workflows/deploy.yml`) will automatically:
 
 After the first deployment completes, your site will be available at:
 ```
-https://yourusername.github.io/ToolMaster/
+https://vignaraj.dev/ToolMaster/
 ```
 
 ## 🛠️ Manual Deployment (Optional)
@@ -64,12 +80,26 @@ GitHub Pages only hosts static files. The backend API (Express server, database,
 The GitHub Pages deployment only includes the frontend. Any environment variables needed for the backend should be configured in your chosen backend hosting service.
 
 ### Custom Domain
-If you want to use a custom domain:
-1. Configure your DNS settings
-2. Add the custom domain in GitHub repository Settings → Pages
-3. Update the `base` path in `vite.pages.config.ts` if needed
+You've already configured your custom domain `vignaraj.dev`. The configuration is set up to work with:
+- **Custom Domain**: `vignaraj.dev`
+- **Project Path**: `/ToolMaster/`
+- **Full URL**: `https://vignaraj.dev/ToolMaster/`
+
+The `base` path in `vite.pages.config.ts` is correctly set to `/ToolMaster/` for your custom domain setup.
 
 ## 🔧 Troubleshooting
+
+### GitHub Actions Permission Issues
+
+If you encounter the error: `Permission to vignarajj/ToolMaster.git denied to github-actions[bot]`
+
+**Solution:**
+1. The workflow has been updated with proper permissions
+2. If the issue persists, try these steps:
+   - Go to repository **Settings** → **Actions** → **General**
+   - Under **Workflow permissions**, select **Read and write permissions**
+   - Check **Allow GitHub Actions to create and approve pull requests**
+   - Click **Save**
 
 ### Common Issues
 
