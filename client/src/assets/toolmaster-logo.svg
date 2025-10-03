@@ -1,0 +1,27 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .logo-text {
+        font-family: 'Arial', 'Helvetica', sans-serif;
+        font-weight: bold;
+        fill: white;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      .title { font-size: 52px; }
+      .subtitle { font-size: 24px; }
+    </style>
+  </defs>
+  
+  <!-- Orange background circle -->
+  <circle cx="200" cy="200" r="200" fill="#C85A3A"/>
+  
+  <!-- Main text "Tool" -->
+  <text x="200" y="160" class="logo-text title">Tool</text>
+  
+  <!-- Main text "Master" -->
+  <text x="200" y="220" class="logo-text title">Master</text>
+  
+  <!-- Code brackets -->
+  <text x="200" y="270" class="logo-text subtitle">&lt;/&gt;</text>
+</svg>

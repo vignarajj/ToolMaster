@@ -11,6 +11,7 @@ import Base64 from "@/pages/base64";
 import PasswordGenerator from "@/pages/password-generator";
 import QRCode from "@/pages/qr-code";
 import ColorPicker from "@/pages/color-picker";
+import EncryptionExplorer from "@/pages/encryption-explorer";
 import NotFound from "@/pages/not-found";
 
 // Use Vite's BASE_URL which is set correctly in production
@@ -47,6 +48,11 @@ function AppRouter() {
       <Route path="/color-picker">
         <MainLayout title="Color Picker Manager" description="Pick colors and manage your color palette">
           <ColorPicker />
+        </MainLayout>
+      </Route>
+      <Route path="/encryption-explorer">
+        <MainLayout title="Encryption Explorer" description="Interactive platform for experimenting with encryption methods">
+          <EncryptionExplorer />
         </MainLayout>
       </Route>
       <Route component={NotFound} />

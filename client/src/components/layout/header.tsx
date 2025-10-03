@@ -14,6 +14,7 @@ const tools = [
   { path: "/", icon: null, label: "Text Counter" },
   { path: "/text-converter", icon: null, label: "Text Converter" },
   { path: "/base64", icon: null, label: "Base64 Encoder" },
+  { path: "/encryption-explorer", icon: null, label: "Encryption Explorer" },
   { path: "/password", icon: null, label: "Password Generator" },
   { path: "/qr-code", icon: null, label: "QR Code Generator" },
   { path: "/color-picker", icon: null, label: "Color Picker" },

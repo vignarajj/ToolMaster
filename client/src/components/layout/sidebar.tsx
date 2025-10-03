@@ -11,7 +11,8 @@ import {
   RefreshCw,
   X,
   Sun,
-  Moon
+  Moon,
+  Shield
 } from "lucide-react";
 
 interface SidebarProps {
@@ -26,6 +27,7 @@ const tools = [
       { path: "/", icon: Calculator, label: "Text Counter" },
       { path: "/text-converter", icon: RefreshCw, label: "Text Converter" },
       { path: "/base64", icon: Code, label: "Base64 Encoder" },
+      { path: "/encryption-explorer", icon: Shield, label: "Encryption Explorer" },
     ]
   },
   {
